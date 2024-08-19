@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: '測試用-Swagger UI '
+  description: ""
+  contact:
+    name: Victor
+    email: skyi989@ymail.com
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /home/getSingleStockData:
+    post:
+      tags:
+      - stock-controller
+      summary: 取得個股收盤資訊
+      description: 取得個股收盤資訊
+      operationId: getTodaySingleStockData
+      parameters:
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StockData"
+  /home/getTodayStockData:
+    get:
+      tags:
+      - stock-controller
+      summary: 取得今日上市股票收盤資訊
+      description: 取得今日上市股票收盤資訊
+      operationId: getTodayStockData
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StockData"
+  /home/getTaiwanTotalIndex:
+    get:
+      tags:
+      - stock-controller
+      summary: 取得加權指數
+      description: 取得加權指數
+      operationId: getTaiwanTotalIndex
+      parameters:
+      - name: 日期
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TaiwanTotalIndex"
+components:
+  schemas:
+    StockData:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        code:
+          type: string
+        name:
+          type: string
+        tradeVolume:
+          type: string
+        tradeValue:
+          type: string
+        openingPrice:
+          type: string
+        highestPrice:
+          type: string
+        lowestPrice:
+          type: string
+        closingPrice:
+          type: string
+        change:
+          type: string
+        transaction:
+          type: string
+    TaiwanTotalIndex:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        openingIndex:
+          type: string
+        highestIndex:
+          type: string
+        lowestIndex:
+          type: string
+        closingIndex:
+          type: string
